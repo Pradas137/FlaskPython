@@ -1,0 +1,34 @@
+<ul>
+            {% for Local in equipos %}
+              {% for Visitantes in equipos %}
+                {% if Local != Visitantes %}
+                  {{ listaEquipos.append(Visitantes) }}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </ul>
+          {% for Local in range(0,len(equipos)) %}
+            {% for Visitantes in range(1,len(equipos)) %}
+              {{ diccLigas[listaEquipos[0]] }}
+              {{ Lista.append(diccLigas) }}
+              {{ Ligas[str(equipos[Local])] = {{Lista}}
+            {% endfor %}
+          {% endfor %}
+          {% for Local in Ligas %}
+              {% for Visitantes in Ligas[local] %}
+              {{ resultados }}
+                {% for puntos in Visitantes %}
+                  {{ diccMostrar[puntos]=resultados }}
+                  {{ Visitantes.update(diccMostrar }}
+                {% endfor %}
+              {% endfor %}
+            {% endfor %}
+            {% for j in range(1,len(equipos)) %}
+              {{ equipos[j] = {equipos[j]:1} }}
+              {% for Local in Ligas %}
+                {% for pe in Liga[Local] %}
+                  {% for Visitantes in pe %}
+                  {{Local , Visitantes , pe.get(Visitantes)}}
+                {% endfor %}
+              {% endfor %}
+            {% endfor %}
