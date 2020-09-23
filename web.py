@@ -5,19 +5,8 @@ from flask import render_template
 from flask import request
 from flask import current_app
 import random
+import logging
 
-file = open("equips.cfg","r")
-equipos= file.read().splitlines()
-listaEquipos =[]
-Ligas ={}
-diccLigas = {}
-diccMostrar = {}
-Lista=[]
-
-def PuntosResultados():
-    puntos1 = random.randint(0, 9)
-    puntos2 = random.randint(0, 9)
-    return (puntos1, puntos2)
 
 def partido():
     file = open("equips.cfg", "r")
@@ -26,28 +15,43 @@ def partido():
 
     equipos = []
     for Local in datos:
+        # print(Local)
         for Visitantes in datos:
+            # print(Visitantes)
             if Local != Visitantes:
                 equipos.append(Visitantes)
+                #print(equipos)
     Liga=[]
     Ligas ={}
     for Local in range(0, len(datos)):
         Lista = []
+        # print(Local)
         for Visitantes in range(1, len(datos)):
+            # print(Visitantes)
             diccionario1 = {}
             diccionario1[equipos[0]] = "none"
             del equipos[0]
             Lista.append(diccionario1)
+            #print(Lista)
             Ligas[str(datos[Local])] = Lista
     return (Ligas)
+
+
+def PuntosResultados():
+    puntos1 = random.randint(0, 9)
+    puntos2 = random.randint(0, 9)
+    return (puntos1, puntos2)
 
 
 def añadiryMostrar(Partidos):
     diccionario2 = {}
     for Local in Partidos:
+        # print(Local)
         for Visitantes in Partidos[Local]:
+            # print(Visitantes)
             reultado = PuntosResultados()
             for puntos in Visitantes:
+                #print(puntos)
                 diccionario2[puntos] = reultado
             Visitantes.update(diccionario2)
 
@@ -57,14 +61,17 @@ def añadiryMostrar(Partidos):
         datos[j] = {datos[j] : 0}
     equips.close()
     for Local in Partidos:
+        # print(local)
         for pe in Partidos[Local]:
+            # print(pe)
             for Visitante in pe:
-                print("|",Local, "       |     \tcontra      ","|     ", Visitante, "|", pe.get(Visitante))
+                #print(Visitante)
+                return (Local, Visitante, pe.get(Visitante))
 
 
-Partidos=partido()   
-Final = añadiryMostrar(Partidos)
-
+Partidos = partido()
+Ligaf= añadiryMostrar(Partidos)   
+resultado = PuntosResultados()
 
 @app.route('/')
 def Menu():
@@ -77,7 +84,7 @@ def Equipos_get():
 @app.route('/Partidos')
 def Partidos_get():
 
-	return render_template('Partidos.html', equipos=equipos, Lista=Lista, listaEquipos=listaEquipos, Ligas=Ligas, Final=Final)
+	return render_template('Partidos.html',Partidos=Partidos,resultado=resultado,Ligaf=Ligaf)
 
 @app.route('/Equipos',methods=["POST"])
 def Equipos_post():

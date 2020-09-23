@@ -8,27 +8,20 @@
     </HEAD>
 
     <BODY>
+      <header>
+      <div class="container">
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('Menu') }}">Menu</a></li>
+            <li><a href="{{ url_for('Equipos_get')}}">Equipos</a></li>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
       <div>
         <div class="Partidos">
           <h1>Partidos y Resultados</h1>
         </div>
-           {% for Local in Partidos %}
-              {% for Visitantes in Partidos[Local] %}
-              {{ resultado }}
-                {% for puntos in Visitantes %}
-                  {{ diccMostrar[puntos]=resultado }}
-                  {{ Visitantes.update(diccMostrar }}
-                {% endfor %}
-              {% endfor %}
-            {% endfor %}
-            {% for j in range(1,len(equipos)) %}
-              {{ equipos[j] = {equipos[j]:1} }}
-              {% for Local in Partidos %}
-                {% for pe in Partidos[Local] %}
-                  {% for Visitantes in pe %}
-                  {{Local , Visitantes , pe.get(Visitantes)}}
-                {% endfor %}
-              {% endfor %}
-            {% endfor %}
+              <li>{{Ligaf}}</li>
     </BODY>
 </HTML>
