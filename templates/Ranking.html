@@ -3,7 +3,7 @@
 <HTML lang="es">
 
    <HEAD>
-        <title>Partidos</title>
+        <title>Ranking</title>
         <meta charset="utf-8">
     </HEAD>
 
@@ -14,13 +14,15 @@
           <ul class="menu">
             <li><a href="{{ url_for('Menu') }}">Menu</a></li>
             <li><a href="{{ url_for('Equipos_get')}}">Equipos</a></li>
-            <li><a href="{{ url_for('Ranking_get')}}">Ranking</a></li>
+            <li><a href="{{ url_for('Partidos_get')}}">Partidos y Resultados</a></li>
           </ul>
         </nav></strong>
       </div>
     </header>
       <div>
         <div class="Partidos">
-          <h1>Partidos y Resultados</h1>
-            <h1>Hola {{Ligaf}}</h1>
+          <h1>ranking</h1>
+        </div>
+              <li>{{league}}</li>
+    </BODY>
 </HTML>

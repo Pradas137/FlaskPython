@@ -1,12 +1,16 @@
+from __future__ import print_function
+
 from flask import Flask
 app = Flask(__name__)
- 
+
 from flask import render_template
 from flask import request
 from flask import current_app
 import random
 import logging
+import sys
 
+from collections import OrderedDict
 
 def partido():
     file = open("equips.cfg", "r")
@@ -21,7 +25,6 @@ def partido():
             if Local != Visitantes:
                 equipos.append(Visitantes)
                 #print(equipos)
-    Liga=[]
     Ligas ={}
     for Local in range(0, len(datos)):
         Lista = []
@@ -43,32 +46,37 @@ def PuntosResultados():
     return (puntos1, puntos2)
 
 
-def añadiryMostrar(Partidos):
-    diccionario2 = {}
+def añadir(Partidos):
     for Local in Partidos:
         # print(Local)
         for Visitantes in Partidos[Local]:
             # print(Visitantes)
             reultado = PuntosResultados()
             for puntos in Visitantes:
-                #print(puntos)
-                diccionario2[puntos] = reultado
-            Visitantes.update(diccionario2)
+                temp={}
+                temp[puntos]=reultado
+                temp[puntos] = reultado
+            Visitantes.update(temp)
+    return(Partidos)
 
+def Mostrar(Partidos):
     equips = open("equips.cfg", "r")
     datos = equips.read().splitlines()
-    for j in range(1,len(datos)):
-        datos[j] = {datos[j] : 0}
     equips.close()
     for Local in Partidos:
+        # print(local)
         for pe in Partidos[Local]:
-            for Visitante in pe:
-                return (Local, Visitante, pe.get(Visitante))
+            # print(pe)
+            for i in pe:
+                #print(Visitante)
+                print("|",Local, "       |     \tcontra      ","|     ", i, "|", (pe.get(i)))
+    #print(datos)
 
-
+resultado=PuntosResultados()
 Partidos = partido()
-Ligaf= añadiryMostrar(Partidos)   
-resultado = PuntosResultados()
+Liga = añadir(Partidos)
+Ligaf= Mostrar(Liga)
+league = Mostrar(Liga)
 
 @app.route('/')
 def Menu():
@@ -83,18 +91,20 @@ def Partidos_get():
 
 	return render_template('Partidos.html',Partidos=Partidos,resultado=resultado,Ligaf=Ligaf)
 
+@app.route('/Ranking')
+def Ranking_get():
+        return render_template('Ranking.html',league=league)
+
+
 @app.route('/Equipos',methods=["POST"])
 def Equipos_post():
-
-    return render_template('Equipos.html',
-                producte=producte, quantitat=quantitat)
+    return render_template('Equipos.html',producte=producte, quantitat=quantitat)
 
 
 @app.route('/Partidos',methods=["POST"])
 def Partidos_post():
 
-    return render_template('Partidos.html',
-                producte=producte, quantitat=quantitat)
+    return render_template('Partidos.html',producte=producte, quantitat=quantitat)
   
 # arranquem l'aplicació
 app.run( debug=True )
