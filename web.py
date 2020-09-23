@@ -61,11 +61,8 @@ def añadiryMostrar(Partidos):
         datos[j] = {datos[j] : 0}
     equips.close()
     for Local in Partidos:
-        # print(local)
         for pe in Partidos[Local]:
-            # print(pe)
             for Visitante in pe:
-                #print(Visitante)
                 return (Local, Visitante, pe.get(Visitante))
 
 
@@ -79,7 +76,7 @@ def Menu():
 
 @app.route('/Equipos')
 def Equipos_get():
-        return render_template('Equipos.html', equipos=equipos)
+        return render_template('Equipos.html', Partidos=Partidos)
 
 @app.route('/Partidos')
 def Partidos_get():
