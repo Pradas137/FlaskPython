@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">Menu de la Liga</h1>
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('Equipos_get') }}">Equipos</a></li>
+            <li><a href="{{ url_for('Partidos_get') }}">Partidos y Resultados</a></li>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
+    {% block content %}
+    
+    {% endblock %}
+  </body>
+</html>

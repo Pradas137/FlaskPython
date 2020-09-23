@@ -6,22 +6,38 @@ from flask import request
 from flask import current_app
 
 
-productes =["melon","sandia","platanos"]
-
 file = open("equips.cfg","r")
-lliga= file.read().splitlines()
+equipos= file.read().splitlines()
+listaEquipos =[]
+Ligas ={}
+diccLigas = {}
+Lista=[]
 
+@app.route('/')
+def Menu():
+        return render_template('Menu.html')
 
-@app.route('/compra')
-def compra_get():
-        return render_template('compra_form.html', productes = productes, liga= Lliga)
+@app.route('/Equipos')
+def Equipos_get():
+        return render_template('Equipos.html', equipos=equipos)
 
- 
-@app.route('/compra',methods=["POST"])
-def compra_post():
+@app.route('/Partidos')
+def Partidos_get():
 
-    return render_template('compra_post.html',
+	return render_template('Partidos.html', equipos=equipos, Lista=Lista, listaEquipos=listaEquipos, Ligas=Ligas, diccLigas=diccLigas)
+
+@app.route('/Equipos',methods=["POST"])
+def Equipos_post():
+
+    return render_template('Equipos.html',
                 producte=producte, quantitat=quantitat)
-    
+
+
+@app.route('/Partidos',methods=["POST"])
+def Partidos_post():
+
+    return render_template('Partidos.html',
+                producte=producte, quantitat=quantitat)
+  
 # arranquem l'aplicació
 app.run( debug=True )

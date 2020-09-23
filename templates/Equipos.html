@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<HTML lang="es">
+
+   <HEAD>
+        <title>Equipos</title>
+        <meta charset="utf-8">
+    </HEAD>
+
+    <BODY>
+      <header>
+      <div class="container">
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('Menu') }}">Menu</a></li>
+            <li><a href="{{ url_for('Partidos_get') }}">Partidos y Resultados</a></li>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
+      <div>
+        <div class="Equipos">
+          <h1>Equipos Participantes</h1>
+        </div>
+        <form method="post">
+          <ul>
+            {% for equip in equipos %}
+              <li>{{equip}}</li>
+            {% endfor %}
+          </ul>
+          <br>
+        </form>
+    </BODY>
+</HTML>
