@@ -23,6 +23,12 @@
         <div class="Partidos">
           <h1>ranking</h1>
         </div>
-              <li>{{league}}</li>
+            {% for equip in Partidos %}
+              {% for pe in Partidos[equip] %}
+                {% for i in pe %}
+                  <li>{{Local, i, (pe.get(i))}}</li>
+                {% endfor %}
+              {% endfor %}
+            {% endfor %}
     </BODY>
 </HTML>

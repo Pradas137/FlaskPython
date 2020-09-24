@@ -12,31 +12,33 @@ import sys
 
 from collections import OrderedDict
 
-def partido():
+def file():
     file = open("equips.cfg", "r")
     datos = file.read().splitlines()
     file.close()
+    return datos
 
+def partido(file):
     equipos = []
-    for Local in datos:
+    for Local in file:
         # print(Local)
-        for Visitantes in datos:
+        for Visitantes in file:
             # print(Visitantes)
             if Local != Visitantes:
                 equipos.append(Visitantes)
                 #print(equipos)
     Ligas ={}
-    for Local in range(0, len(datos)):
+    for Local in range(0, len(file)):
         Lista = []
         # print(Local)
-        for Visitantes in range(1, len(datos)):
+        for Visitantes in range(1, len(file)):
             # print(Visitantes)
             diccionario1 = {}
             diccionario1[equipos[0]] = "none"
             del equipos[0]
             Lista.append(diccionario1)
             #print(Lista)
-            Ligas[str(datos[Local])] = Lista
+            Ligas[str(file[Local])] = Lista
     return (Ligas)
 
 
@@ -59,21 +61,25 @@ def añadir(Partidos):
             Visitantes.update(temp)
     return(Partidos)
 
+
 def Mostrar(Partidos):
     equips = open("equips.cfg", "r")
     datos = equips.read().splitlines()
+    for j in range(1, len(datos)):
+    	datos[j] = {datos[j]: 0}
     equips.close()
     for Local in Partidos:
         # print(local)
         for pe in Partidos[Local]:
             # print(pe)
             for i in pe:
-                #print(Visitante)
-                print("|",Local, "       |     \tcontra      ","|     ", i, "|", (pe.get(i)))
-    #print(datos)
+                lo = (Local, i, (pe.get(i)))
+    return(lo)
 
+
+file=file()
 resultado=PuntosResultados()
-Partidos = partido()
+Partidos = partido(file)
 Liga = añadir(Partidos)
 Ligaf= Mostrar(Liga)
 league = Mostrar(Liga)
@@ -84,16 +90,16 @@ def Menu():
 
 @app.route('/Equipos')
 def Equipos_get():
-        return render_template('Equipos.html', Partidos=Partidos)
+        return render_template('Equipos.html',file=file,Partidos=Partidos)
 
 @app.route('/Partidos')
 def Partidos_get():
 
-	return render_template('Partidos.html',Partidos=Partidos,resultado=resultado,Ligaf=Ligaf)
+	return render_template('Partidos.html',file=file,Partidos=Partidos,resultado=resultado,Ligaf=Ligaf)
 
 @app.route('/Ranking')
 def Ranking_get():
-        return render_template('Ranking.html',league=league)
+        return render_template('Ranking.html',Partidos=Partidos,league=league)
 
 
 @app.route('/Equipos',methods=["POST"])
