@@ -48,41 +48,12 @@ def PuntosResultados():
     return (puntos1, puntos2)
 
 
-def añadir(Partidos):
-    for Local in Partidos:
-        # print(Local)
-        for Visitantes in Partidos[Local]:
-            # print(Visitantes)
-            reultado = PuntosResultados()
-            for puntos in Visitantes:
-                temp={}
-                temp[puntos]=reultado
-                temp[puntos] = reultado
-            Visitantes.update(temp)
-    return(Partidos)
-
-
-def Mostrar(Partidos):
-    equips = open("equips.cfg", "r")
-    datos = equips.read().splitlines()
-    for j in range(1, len(datos)):
-    	datos[j] = {datos[j]: 0}
-    equips.close()
-    for Local in Partidos:
-        # print(local)
-        for pe in Partidos[Local]:
-            # print(pe)
-            for i in pe:
-                lo = (Local, i, (pe.get(i)))
-    return(lo)
 
 
 file=file()
 resultado=PuntosResultados()
 Partidos = partido(file)
-Liga = añadir(Partidos)
-Ligaf= Mostrar(Liga)
-league = Mostrar(Liga)
+
 
 @app.route('/')
 def Menu():
@@ -90,16 +61,16 @@ def Menu():
 
 @app.route('/Equipos')
 def Equipos_get():
-        return render_template('Equipos.html',file=file,Partidos=Partidos)
+        return render_template('Equipos.html',file=file)
 
 @app.route('/Partidos')
 def Partidos_get():
 
-	return render_template('Partidos.html',file=file,Partidos=Partidos,resultado=resultado,Ligaf=Ligaf)
+	return render_template('Partidos.html',Partidos=Partidos)
 
 @app.route('/Ranking')
 def Ranking_get():
-        return render_template('Ranking.html',Partidos=Partidos,league=league)
+        return render_template('Ranking.html',Partidos=Partidos)
 
 
 @app.route('/Equipos',methods=["POST"])
