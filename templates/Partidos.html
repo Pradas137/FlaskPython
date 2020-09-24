@@ -22,5 +22,14 @@
       <div>
         <div class="Partidos">
           <h1>Partidos y Resultados</h1>
-              <li>{{Partidos}}</li>
+            <li>{{Partidos}}</li>
+            {% for equip in Partidos %}
+              {% for pe in Partidos[equip] %}
+                {% for i in pe %}
+                  <li>{{Local, i, (pe.get(i))}}</li>
+                {% endfor %}
+              {% endfor %}
+            {% endfor %}
+
+
 </HTML>
