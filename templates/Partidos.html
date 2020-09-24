@@ -23,6 +23,7 @@
         <div class="Partidos">
           <h1>Partidos y Resultados</h1>
             <li>{{Partidos}}</li>
+            <br>
             {% for equip in Partidos %}
               {% for pe in Partidos[equip] %}
                 {% for i in pe %}
@@ -30,6 +31,5 @@
                 {% endfor %}
               {% endfor %}
             {% endfor %}
-
 
 </HTML>
