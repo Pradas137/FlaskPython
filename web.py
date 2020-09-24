@@ -42,7 +42,6 @@ def partido(file):
     return (Ligas)
 
 
-
 file=file()
 Partidos = partido(file)
 
