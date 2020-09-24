@@ -23,12 +23,19 @@
         <div class="Partidos">
           <h1>ranking</h1>
         </div>
-            {% for equip in Partidos %}
-              {% for pe in Partidos[equip] %}
-                {% for i in pe %}
-                  <li>{{Local, i, (pe.get(i))}}</li>
-                {% endfor %}
+        <ul>
+        {% for group in Partidos|groupby('') %}
+          <li>{{ group.grouper }}
+            <ul>
+              {% for item in group.list %}
+                <li>{{ item.name }}: {{ item.street }}</li>
               {% endfor %}
-            {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+        </ul>
+
+
     </BODY>
 </HTML>
+

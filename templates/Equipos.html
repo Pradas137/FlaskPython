@@ -25,10 +25,20 @@
         </div>
         <form method="post">
           <ul>
-            {% for equip in file %}
+            {% for equip in Partidos %}
               <li>{{equip}}</li>
             {% endfor %}
-          </ul>
+            
+
+
+            {% for row in data %}
+            {{row[0]}}
+            <ul>
+              {% for element in row[1:] %}
+            <li>{{element|join(',')}}<li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
           <br>
         </form>
     </BODY>
