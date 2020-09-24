@@ -58,24 +58,10 @@ def añadir(Partidos):
             Visitantes.update(temp)
     return(Partidos)
 
-def Mostrar(Partidos):
-    equips = open("equips.cfg", "r")
-    datos = equips.read().splitlines()
-    for j in range(0, len(datos)):
-        datos[j] = {datos[j]: 0}
-    equips.close()
-    for Local in Partidos:
-        #print(local)
-        for pe in Partidos[Local]:
-            # print(pe)
-            for i in pe:
-                lo = (Local, i, (pe.get(i)))
-                return(lo)
 
 file=file()
 Partidos = partido(file)
 add= añadir(Partidos)
-m = Mostrar(Partidos)
 
 @app.route('/')
 def Menu():
@@ -88,7 +74,7 @@ def Equipos_get():
 @app.route('/Partidos')
 def Partidos_get():
 
-	return render_template('Partidos.html',Partidos=Partidos,m=m)
+	return render_template('Partidos.html',Partidos=Partidos)
 
 @app.route('/Ranking')
 def Ranking_get():
