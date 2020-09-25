@@ -47,12 +47,11 @@
           </tr>
           {% for local in Partidos %}
               {% for visitant in Partidos[local] %}
-                {% for i in visitant %}
+
           <tr>
             <td>{{local}}</td>
             <td>{{visitant}}</td>
           </tr>
-              {% endfor %}
             {% endfor %}
         {% endfor %}
         </table>
