@@ -3,36 +3,63 @@
 <HTML lang="es">
 
    <HEAD>
-        <title>Ranking</title>
-        <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="description" content="Simple interface to make some music using a raspberry pi">
+    <meta name="author" content="Robert Filter">
+    <link rel="icon" href="">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      h1 {text-align: center}
+    </style>
     </HEAD>
 
     <BODY>
       <header>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <strong><nav>
-          <ul class="menu">
-            <li><a href="{{ url_for('Menu') }}">Menu</a></li>
-            <li><a href="{{ url_for('Equipos_get')}}">Equipos</a></li>
-            <li><a href="{{ url_for('Partidos_get')}}">Partidos y Resultados</a></li>
-          </ul>
-        </nav></strong>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+        </div>
       </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1>Liga de Futbol</h1>
+            <div class="btn-group btn-group-justified">
+                <a href="/" class="btn btn-lg btn-warning">Menu</a>
+                <a href="/Equipos" class="btn btn-lg btn-danger">Equipos</a>
+                <a href="/Partidos" class="btn btn-lg btn-danger">Partidos</a>
+            </div>
+        </div>
     </header>
       <div>
-        <div class="Partidos">
-          <h1>ranking</h1>
-        </div>
-        <ul>
-        {% for local in Partidos %}
+        <h1>Ranking</h1>
+        {% block content %}
+          <div class="container">
+            <div class="col-12-xs">
+        <hr>
+          <table class="table table-striped">
+          <tr>
+            <th>Local</th>
+            <th>Visitante</th>
+          </tr>
+          {% for local in Partidos %}
               {% for visitant in Partidos[local] %}
                 {% for i in visitant %}
-                  <li>{{local}} --vs-- {{visitant}}</li>
-                {% endfor %}
+          <tr>
+            <td>{{local}}</td>
+            <td>{{visitant}}</td>
+          </tr>
               {% endfor %}
             {% endfor %}
-        </ul>
-
+        {% endfor %}
+        </table>
+      </div>
+    </div>
+  {% endblock %}
 
     </BODY>
 </HTML>

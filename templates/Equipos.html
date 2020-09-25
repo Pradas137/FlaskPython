@@ -3,43 +3,89 @@
 <HTML lang="es">
 
    <HEAD>
-        <title>Equipos</title>
-        <meta charset="utf-8">
-    </HEAD>
+    <meta charset="utf-8">
+    <meta name="description" content="Simple interface to make some music using a raspberry pi">
+    <meta name="author" content="Robert Filter">
+    <link rel="icon" href="">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      h1 {text-align: center}
+      
 
+      .form-control {
+        margin:20px auto 40px auto;  
+        border:1px solid #d9d9d9;
+        height:30px;
+        overflow: hidden;
+        width: 300px;
+        position:relative;
+        }
+      select {
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        height: 30px;
+        padding: 5px;
+        width: 300px;
+      }
+
+      select:focus{ outline: none;}
+
+      .form-control::after{
+        content:"\025be";
+        display:table-cell;
+        padding-top:7px;
+        text-align:center;
+        width:30px;
+        height:30px;
+        background-color:#d9d9d9;
+        position:absolute;
+        top:0;
+        right:0px;  
+        pointer-events: none;
+      }
+
+      .buttonHolder{ text-align: center; }
+
+    </style>
+    </HEAD>
     <BODY>
       <header>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <strong><nav>
-          <ul class="menu">
-            <li><a href="{{ url_for('Menu') }}">Menu</a></li>
-            <li><a href="{{ url_for('Partidos_get') }}">Partidos y Resultados</a></li>
-            <li><a href="{{ url_for('Ranking_get')}}">Ranking</a></li>
-          </ul>
-        </nav></strong>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          </button>
+        </div>
       </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1>Liga de Futbol</h1>
+            <div class="btn-group btn-group-justified">
+                <a href="/" class="btn btn-lg btn-warning">Menu</a>
+                <a href="/Equipos" class="btn btn-lg btn-danger">Equipos</a>
+                <a href="/Ranking" class="btn btn-lg btn-danger">Ranking</a>
+            </div>
+        </div>
     </header>
       <div>
         <div class="Equipos">
           <h1>Equipos Participantes</h1>
         </div>
-        <form method="post">
-          <ul>
+        <div class="form-group">
+          <form method="post">
+          <select class="form-control"/>
+            <option disabled="" selected="" value="">Equipos</option>
             {% for equip in Partidos %}
-              <li>{{equip}}</li>
+            <option value="{{ equip }}">{{ equip }}</option>
             {% endfor %}
-            
-
-
-            {% for row in data %}
-            {{row[0]}}
-            <ul>
-              {% for element in row[1:] %}
-            <li>{{element|join(',')}}<li>
-              {% endfor %}
-            </ul>
-            {% endfor %}
-          <br>
-        </form>
+          </select>
+          <div class="buttonHolder">
+            <input value="Search" title="Search" type="submit" id="btn_s"> 
+          </div>
+          </form>
+        </div>
     </BODY>
 </HTML>

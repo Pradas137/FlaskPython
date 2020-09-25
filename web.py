@@ -85,8 +85,7 @@ def Menu():
 
 @app.route('/Equipos')
 def Equipos_get():
-    data = [['Valencia',[['Betis', (6, 0)],['Madrid', (2, 7)],['Sevilla',(3, 7)]]],['Betis',[['Valencia', (3, 7)],['Madrid',  (7, 3)],['Sevilla',(8, 6)]]]]
-    return render_template('Equipos.html',Partidos=Partidos,file=file,mostrar=mostrar,data=data)
+    return render_template('Equipos.html',Partidos=Partidos,file=file)
 
 @app.route('/Partidos')
 def Partidos_get():
@@ -100,13 +99,7 @@ def Ranking_get():
 
 @app.route('/Equipos',methods=["POST"])
 def Equipos_post():
-    return render_template('Equipos.html',producte=producte, quantitat=quantitat)
-
-
-@app.route('/Partidos',methods=["POST"])
-def Partidos_post():
-
-    return render_template('Partidos.html',producte=producte, quantitat=quantitat)
+    return render_template('Partidos.html',Partidos=Partidos)
   
 # arranquem l'aplicació
 app.run( debug=True )
