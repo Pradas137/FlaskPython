@@ -48,7 +48,7 @@
           </tr>
           {% for local in Partidos %}
               {% for visitant in Partidos[local] %}
-                {% for i in visitant %}
+                {% for i in visitant |sort %}
           <tr>
             <td>{{local}}</td>
             <td>{{visitant}}</td>
