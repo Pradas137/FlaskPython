@@ -24,15 +24,13 @@
           <h1>ranking</h1>
         </div>
         <ul>
-        {% for group in Partidos|groupby('') %}
-          <li>{{ group.grouper }}
-            <ul>
-              {% for item in group.list %}
-                <li>{{ item.name }}: {{ item.street }}</li>
+        {% for local in Partidos %}
+              {% for visitant in Partidos[local] %}
+                {% for i in visitant %}
+                  <li>{{local}} --vs-- {{visitant}}</li>
+                {% endfor %}
               {% endfor %}
-            </ul>
-          </li>
-        {% endfor %}
+            {% endfor %}
         </ul>
 
 
