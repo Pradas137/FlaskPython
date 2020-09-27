@@ -43,7 +43,7 @@ def partido(file):
     return (Ligas)
 
 def PuntosResultados():
-    puntos1 = random.randint(0, 9)
+    puntos1 = random.randint(0, 10)
     puntos2 = random.randint(0, 9)
     return (puntos1, puntos2)
 
