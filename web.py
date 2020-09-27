@@ -40,6 +40,7 @@ def partido(file):
             Lista.append(diccionario1)
             #print(Lista)
             Ligas[str(file[Local])] = Lista
+    return (Ligas)
 
 def PuntosResultados():
     puntos1 = random.randint(0, 9)
