@@ -77,8 +77,8 @@
         <div class="form-group">
           <form method="post">
           <select class="form-control"/>
-            <option disabled="" selected="" value="">Equipos</option>
-            {% for equip in Partidos %}
+           <option disabled="" selected="" value="">Equipos</option>
+            {% for equip in teams %}
             <option value="{{ equip }}">{{ equip }}</option>
             {% endfor %}
           </select>
