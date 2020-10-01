@@ -41,24 +41,107 @@
             <div class="col-12-xs">
         <hr>
           <table class="table table-striped">
-          <tr>
-            <th>Local</th>
-            <th>Visitante</th>
-          </tr>
-          {% for local in Partidos %}
-              {% for visitant in Partidos[local] %}
-
-          <tr>
-            <td>{{local}}</td>
-            <td>{{visitant}}</td>
-          </tr>
-            {% endfor %}
-        {% endfor %}
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col"></th>
+                {% for equipos in equips %}
+                <th class="text-center" scope="col">{{equipos}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+                {% for Local in equips %}
+                <tr>
+                    <th class="bg-dark text-light" scope="row">{{Local}}</th>
+                    {% for Visitantes in Liga[Local] %} 
+                    {% if Liga[Local][Visitantes] == "X" %}
+                    <td class="bg-dark"></td>
+                    {% else %}
+                    <td class="text-center">{{Liga[Local][Visitantes]}}</td>
+                    {% endif %} {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
       </div>
     </div>
   {% endblock %}
+  <div class="container-fluid">
+    <h1 class="mt-4 mb-4">Set Goals</h1>
 
+    {% if error == "sameTeams" %}
+    <div class="alert alert-danger" role="alert">
+        Please, select different teams.
+    </div>
+    {% endif %}
+    <form method="POST">
+        <div class="card">
+            <h5 class="card-header">Local</h5>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="localTeamSelector">Local</label>
+                    <select
+                        class="form-control"
+                        name="localTeam"
+                        id="localTeamSelector"
+                    >
+                        {% for equipos in equips %}
+                        <option value="{{equipos}}">{{equipos}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="localTeamScoreInput"> Goles Local</label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="localTeamScore"
+                        id="localTeamScoreInput"
+                        aria-describedby="helpId"
+                        required
+                        placeholder="0"
+                    />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <h5 class="card-header">Visitantes</h5>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="visitantTeamSelector">Visitantes</label>
+                    <select
+                        class="form-control"
+                        name="visitantTeam"
+                        id="visitantTeamSelector"
+                    >
+                        {% for equipos in equips %}
+                        <option value="{{equipos}}">{{equipos}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="visitantTeamScoreInput">
+                        Goles visitantes</label
+                    >
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="visitantTeamScore"
+                        id="visitantTeamScoreInput"
+                        aria-describedby="helpId"
+                        required
+                        placeholder="0"
+                    />
+                </div>
+            </div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
     </BODY>
 </HTML>
 
