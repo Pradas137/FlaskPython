@@ -83,7 +83,7 @@ def set_ranking_points(points, Local, Visitantes):
         ranking[Visitantes] += 3
 
 
-teams = file()
+equips = file()
 Liga = CrearLiga()
 ranking = CrearRanking()
 
@@ -94,17 +94,17 @@ def Menu():
 
 @ app.route('/Partidos')
 def Partidos():
-    return render_template("Partidos.html", Liga=Liga, teams=teams)
+    return render_template("Partidos.html", Liga=Liga, equips=equips)
 
 
 @ app.route('/Equipos')
 def Equipos():
-    return render_template("Equipos.html", teams=teams)
+    return render_template("Equipos.html", equips=equips)
 
 
 @app.route('/Goles')
 def Goles(error=None):
-    return render_template("Partidos.html", teams=teams, error=error)
+    return render_template("Partidos.html", equips=equips, error=error)
 
 
 @app.route('/Ranking')
