@@ -1,69 +1,76 @@
-from __future__ import print_function
-
-from flask import Flask
+from flask import Flask, request, redirect, url_for, render_template
 app = Flask(__name__)
 
-from collections import OrderedDict
-from flask import render_template
-from flask import request
-from flask import current_app
-import random
-import logging
-import sys
 
-from collections import OrderedDict
 
-def file():
-    participantes = []
+
+def Equipos():
+    """Load teams and append to list from file."""
+    Lista_equipos = []
     file = open("equips.cfg", "r")
-    for team in file:
-        participantes.append(team.rstrip("\n"))
-    return participantes
+    for equips in file:
+        Lista_equipos.append(equips.rstrip("\n"))
+    return Lista_equipos
+
 
 def CrearLiga():
+    """ Creates the league matrix."""
     Liga = {}
-    for Local in teams:
+    for Local in equips:
         Liga[Local] = {}
-        for Visitantes in teams:
-            if Visitantes == Local:
-                Liga[Local][Visitantes] = "Gol"
+        for Visitante in equips:
+            if Visitante == Local:
+                Liga[Local][Visitante] = "X"
             else:
-                Liga[Local][Visitantes] = ""
+                Liga[Local][Visitante] = ""
     return Liga
 
 
-def CrearRanking():
-    ranking = {}
-    for Local in teams:
-        ranking[Local] = 0
-    return ranking
+
+equips = Equipos()
+Ligas = CrearLiga()
 
 
-def Actualizar(Local, Visitantes, golesL, golesV):
-    Liga[Local][Visitantes] = golesL
-    Liga[Visitantes][Local] = golesV
+@app.route('/')
+def Menu():
+    return render_template("Menu.html")
+
+@ app.route('/Equipos')
+def Lista_equipos():
+    return render_template("Equipos.html", equips=equips)
+
+@ app.route('/Partidos')
+def league_grid():
+    return render_template("Partidos.html", Ligas=Ligas, equips=equips)
 
 
-def Ranking():
+def update_league(local_team, visitant_team, local_goals, visitant_goals):
+    """Update goals on the league matrix."""
+    league[local_team][visitant_team] = local_goals
+    league[visitant_team][local_team] = visitant_goals
+
+
+def update_ranking():
+    """TODO: Work on a better function."""
     global ranking
-    ranking = CrearRanking()
-    equipos = []
-    for Local in Liga:
-        for visitantes in Liga[Local]:
-            if Liga[local][Visitantes] != "":
-                if Local and visitantes not in equipos and Local != Visitantes:
+    ranking = create_ranking()
+    done_teams = []
+    for local_team in league:
+        for visitant_team in league[local_team]:
+            if league[local_team][visitant_team] != "":
+                if local_team and visitant_team not in done_teams and local_team != visitant_team:
                     points = check_ranking_points(
-                        Liga[Local][Visitantes], Liga[Visitantes][Local])
-                    set_ranking_points(points, Local, Visitantes)
-        equipos.append(Local)
+                        league[local_team][visitant_team], league[visitant_team][local_team])
+                    set_ranking_points(points, local_team, visitant_team)
+        done_teams.append(local_team)
 
 
-def check_ranking_points(Local, Visitantes):
+def check_ranking_points(local, visitant):
     """Check how many points did the local team win."""
-    if Local != "":
-        if Local > Visitantes:
+    if local != "":
+        if local > visitant:
             return 3
-        elif Local == Visitantes:
+        elif local == visitant:
             return 1
         else:
             return 0
@@ -71,60 +78,28 @@ def check_ranking_points(Local, Visitantes):
         return 0
 
 
-def set_ranking_points(points, Local, Visitantes):
+def set_ranking_points(points, local_team, visitant_team):
     """Sum the points depending on the condition."""
     if points == 3:
-        ranking[Local] += points
+        ranking[local_team] += points
     elif points == 1:
-        ranking[Local] += points
-        ranking[Visitantes] += points
+        ranking[local_team] += points
+        ranking[visitant_team] += points
     else:
-        ranking[Local] += points
-        ranking[Visitantes] += 3
+        ranking[local_team] += points
+        ranking[visitant_team] += 3
 
-
-equips = file()
-Liga = CrearLiga()
-ranking = CrearRanking()
-
-@app.route('/')
-def Menu():
-    return render_template("Menu.html")
-
-
-@ app.route('/Partidos')
-def Partidos():
-    return render_template("Partidos.html", Liga=Liga, equips=equips)
-
-
-@ app.route('/Equipos')
-def Equipos():
-    return render_template("Equipos.html", equips=equips)
-
-
-@app.route('/Goles')
-def Goles(error=None):
-    return render_template("Partidos.html", equips=equips, error=error)
-
-
-@app.route('/Ranking')
-def Ranking(error=None):
-    Ranking()
-    return render_template("Ranking.html", ranking=sorted(ranking.items(), key=lambda x: x[1], reverse=True))
-
-
-@app.route('/goals', methods=["POST"])
+        
+@app.route('/Partidos', methods=["POST"])
 def goals_input_post():
-    Local = request.form["localTeam"]
-    Visitantes = request.form["visitantTeam"]
-    golesL = request.form["localTeamScore"]
-    golesV = request.form["visitantTeamScore"]
-    if Local == Visitantes:
-        return Goles("sameTeams")
+    Local = request.form["EquipoLocal"]
+    Visitante = request.form["EquipoVisitante"]
+    GolesL = request.form["PuntuacionLocal"]
+    GolesV = request.form["Puntuacionvisitante"]
+    if Local == visitante:
+        return goals_input("sameTeams")
     else:
-        Actualizar(Local, Visitantes, golesL, golesV)
+        update_league(Local, Visitante, Golesl, GolesV)
         return redirect(url_for("league_grid"))
-
-
 if __name__ == '__main__':
     app.run()

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-
-<HTML lang="es">
+ <HTML lang="es">
 
    <HEAD>
+        <title>Ranking</title>
+        <meta charset="utf-8">
     <meta charset="utf-8">
     <meta name="description" content="Simple interface to make some music using a raspberry pi">
     <meta name="author" content="Robert Filter">
@@ -17,6 +17,13 @@
       <header>
       <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('Menu') }}">Menu</a></li>
+            <li><a href="{{ url_for('Equipos_get')}}">Equipos</a></li>
+            <li><a href="{{ url_for('Partidos_get')}}">Partidos y Resultados</a></li>
+          </ul>
+        </nav></strong>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -36,6 +43,11 @@
         </div>
     </header>
       <div>
+        <div class="Partidos">
+          <h1>ranking</h1>
+        </div>
+        <ul>
+        {% for local in Partidos %}
         <h1>Ranking</h1>
         {% block content %}
           <div class="container">
@@ -48,11 +60,17 @@
           </tr>
           {% for local in Partidos %}
               {% for visitant in Partidos[local] %}
+                {% for i in visitant %}
+                  <li>{{local}} --vs-- {{visitant}}</li>
+                {% endfor %}
           <tr>
             <td>{{local}}</td>
             <td>{{visitant}}</td>
           </tr>
+              {% endfor %}
             {% endfor %}
+        </ul>
+
         {% endfor %}
         </table>
       </div>
@@ -61,4 +79,3 @@
 
     </BODY>
 </HTML>
-

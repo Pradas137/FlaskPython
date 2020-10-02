@@ -12,41 +12,6 @@
       h1 {text-align: center}
       
 
-      .form-control {
-        margin:20px auto 40px auto;  
-        border:1px solid #d9d9d9;
-        height:30px;
-        overflow: hidden;
-        width: 300px;
-        position:relative;
-        }
-      select {
-        background: transparent;
-        border: none;
-        font-size: 14px;
-        height: 30px;
-        padding: 5px;
-        width: 300px;
-      }
-
-      select:focus{ outline: none;}
-
-      .form-control::after{
-        content:"\025be";
-        display:table-cell;
-        padding-top:7px;
-        text-align:center;
-        width:30px;
-        height:30px;
-        background-color:#d9d9d9;
-        position:absolute;
-        top:0;
-        right:0px;  
-        pointer-events: none;
-      }
-
-      .buttonHolder{ text-align: center; }
-
     </style>
     </HEAD>
     <BODY>
@@ -70,22 +35,53 @@
             </div>
         </div>
     </header>
-      <div>
-        <div class="Equipos">
-          <h1>Equipos Participantes</h1>
-        </div>
-        <div class="form-group">
-          <form method="post">
-          <select class="form-control"/>
-           <option disabled="" selected="" value="">Equipos</option>
-            {% for equip in equips %}
-            <option value="{{ equip }}">{{ equip }}</option>
-            {% endfor %}
-          </select>
-          <div class="buttonHolder">
-            <input value="Search" title="Search" type="submit" id="btn_s"> 
+      <div class="container-fluid">
+    <h1 class="mt-4 mb-4">Lista de los Equipos</h1>
+    <ul class="list-group">
+        {% for equip in equips%}
+        <li class="list-group-item">{{equip}}</li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="container-fluid">
+    <form method="POST">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="localTeamSelector">Equipo Local</label>
+              <select class="form-control" name="EquipoLocal" id="localTeamSelector">
+                {% for equip in equips %}
+                  <option value="{{equip}}">{{equip}}</option>
+                {% endfor %}
+              </select>
           </div>
-          </form>
+          <div class="form-group">
+            <label for="localTeamScoreInput"> Puntuacion Local</label>
+              <input type="number" class="form-control" name="PuntuacionLocal" id="LocalInput" aria-describedby="helpId" required placeholder="0"/>
+          </div>
         </div>
-    </BODY>
+      </div>
+      <br />
+
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="visitantTeamSelector">Equipo visitante</label>
+              <select class="form-control" name="EquipoVisitante" id="Visitante">
+                {% for equip in equips %}
+                  <option value="{{equip}}">{{equip}}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="visitantTeamScoreInput">Puntuacion Visitante</label>
+              <input type="number" class="form-control" name="Puntuacionvisitante" id="VisitanteInput" aria-describedby="helpId" required placeholder="0"/>
+          </div>
+        </div>
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Añadir</button>
+    </form>
+</div>
+</BODY>
 </HTML>
