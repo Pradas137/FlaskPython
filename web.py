@@ -20,7 +20,7 @@ def CrearLiga():
         Liga[Local] = {}
         for Visitante in equips:
             if Visitante == Local:
-                Liga[Local][Visitante] = "x"
+                Liga[Local][Visitante] = "X"
             else:
                 Liga[Local][Visitante] = ""
     return Liga
