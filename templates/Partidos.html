@@ -15,22 +15,6 @@
 
     <BODY>
       <header>
-      <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <strong><nav>
-          <ul class="menu">
-            <li><a href="{{ url_for('Menu') }}">Menu</a></li>
-            <li><a href="{{ url_for('Equipos_get')}}">Equipos</a></li>
-            <li><a href="{{ url_for('Ranking_get')}}">Ranking</a></li>
-          </ul>
-        </nav></strong>
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          </button>
-        </div>
-      </div>
-    </nav>
-
     <div class="container-fluid">
         <div class="jumbotron">
             <h1>Liga de Futbol</h1>
@@ -58,7 +42,7 @@
                 <tr>
                     <th class="bg-dark text-light" scope="row">{{Local}}</th>
                     {% for Visitante in Ligas[Local] %} 
-                      {% if Ligas[Local][Visitante] == "X" %}
+                      {% if Ligas[Local][Visitante] == "x" %}
                         <td class="bg-dark"></td>
                       {% else %}
                       <td class="text-center">{{Ligas[Local][Visitante]}}</td>
